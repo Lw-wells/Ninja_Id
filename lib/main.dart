@@ -4,11 +4,16 @@ void main() => runApp(MaterialApp(
   home: NinjaCard(),
 ));
 
-class NinjaCard extends StatelessWidget {
+class NinjaCard extends StatefulWidget {
+  @override
+  State<NinjaCard> createState() => _NinjaCardState();
+}
+
+class _NinjaCardState extends State<NinjaCard> {
+  int ninjaLevel = 0; // ✅ state variable lives here
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
@@ -16,6 +21,15 @@ class NinjaCard extends StatelessWidget {
         backgroundColor: Colors.blue,
         elevation: 0.0,
         centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() { //triggers build to re-run
+            ninjaLevel += 1; // ✅ updates state properly
+          });
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.grey[800],
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
@@ -39,7 +53,7 @@ class NinjaCard extends StatelessWidget {
                 letterSpacing: 2.0,
               ),
             ),
-            SizedBox(height: 10.0,), //adds space between widgets
+            SizedBox(height: 10.0),
             Text(
               'Stanley',
               style: TextStyle(
@@ -50,7 +64,6 @@ class NinjaCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.0),
-
             Text(
               'CURRENT NINJA LEVEL',
               style: TextStyle(
@@ -58,9 +71,9 @@ class NinjaCard extends StatelessWidget {
                 letterSpacing: 2.0,
               ),
             ),
-            SizedBox(height: 10.0,), //adds space between widgets
+            SizedBox(height: 10.0),
             Text(
-              '10',
+              '$ninjaLevel', // ✅ displays current state
               style: TextStyle(
                 color: Colors.amberAccent[200],
                 letterSpacing: 2.0,
@@ -75,7 +88,7 @@ class NinjaCard extends StatelessWidget {
                   Icons.email,
                   color: Colors.grey[400],
                 ),
-                SizedBox(width: 10.0,),
+                SizedBox(width: 10.0),
                 Text(
                   'stanley@gmail.com',
                   style: TextStyle(
@@ -83,8 +96,7 @@ class NinjaCard extends StatelessWidget {
                     fontSize: 18.0,
                     letterSpacing: 2.0,
                   ),
-
-                )
+                ),
               ],
             )
           ],
@@ -93,4 +105,3 @@ class NinjaCard extends StatelessWidget {
     );
   }
 }
-
